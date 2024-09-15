@@ -1,0 +1,11 @@
+<div [formGroup]="form" *transloco="let t">
+  <div class="mb-3">
+    <label for="languageSelect" class="form-label">{{
+      t("Sprache setzen")
+    }}</label>
+    <select class="form-select" id="languageSelect" formControlName="language">
+      <option value="de">{{ t("Deutsch") }}</option>
+      <option value="en">{{ t("Englisch") }}</option>
+    </select>
+  </div>
+</div>
