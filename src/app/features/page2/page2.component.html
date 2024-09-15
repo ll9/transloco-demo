@@ -1,1 +1,3 @@
-<p>page2 works!</p>
+<ng-content *transloco="let t; scope: scope">
+  <p>{{ t("Text von Seite2", i18nParams) }}</p>
+</ng-content>
