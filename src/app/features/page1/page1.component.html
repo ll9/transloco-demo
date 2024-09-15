@@ -1,3 +1,4 @@
-<ng-content *transloco="let t; scope: scope">
+<ng-content *transloco="let t; scope: scope; prefix: scope">
   <p>{{ t("Text von Seite1", i18nParams) }}</p>
+  <p>{{ t("Weiterer Text. Mit mehreren Sätzen.", i18nParams) }}</p>
 </ng-content>

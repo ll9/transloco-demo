@@ -10,14 +10,22 @@ import { i18nScopeKey } from '../helper';
 export class CustomTranslocoMissingHandler implements TranslocoMissingHandler {
   constructor(private injector: Injector) {}
 
-  handle(key: string, config: TranslocoConfig, params: Record<string, any>) {
+  handle(
+    scopedKey: string,
+    config: TranslocoConfig,
+    params: Record<string, any>
+  ) {
     const translocoService = this.injector.get(TranslocoService);
+    const scope = params?.[i18nScopeKey];
+    const key =
+      scope && scopedKey.startsWith(scopedKey)
+        ? scopedKey.slice(scope.length + 1)
+        : scopedKey;
 
     if (translocoService.getActiveLang() === config.defaultLang) return key;
 
-    const scope = params?.[i18nScopeKey];
-
     console.warn(`Key not found : ${key}, scope: ${scope}`);
+
     return key;
   }
 }

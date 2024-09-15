@@ -17,6 +17,7 @@ export class TranslocoHttpLoader implements TranslocoLoader {
 
     const query = scope ? `?context=${scope}` : '';
 
-    return this.http.get<Translation>(`/assets/i18n/${language}.json${query}`);
+    return this.http.get<Translation>(`/assets/i18n/${route}.json`);
+    // return this.http.get<Translation>(`/assets/i18n/${language}.json${query}`);
   }
 }

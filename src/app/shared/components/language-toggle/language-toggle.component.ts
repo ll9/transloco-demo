@@ -8,21 +8,27 @@ import { TranslocoModule, TranslocoService } from '@jsverse/transloco';
   standalone: true,
   imports: [ReactiveFormsModule, TranslocoModule],
   templateUrl: './language-toggle.component.html',
-  styleUrl: './language-toggle.component.scss'
+  styleUrl: './language-toggle.component.scss',
 })
 export class LanguageToggleComponent {
   public form = this.formBuilder.group({
     language: ['de'], // default value
   });
 
-  constructor(private formBuilder: FormBuilder, private t: TranslocoService) {
+  constructor(
+    private formBuilder: FormBuilder,
+    private translocoService: TranslocoService
+  ) {
+    this.form
+      .get('language')
+      ?.valueChanges.pipe(takeUntilDestroyed())
+      .subscribe((newLanguage) => {
+        if (!newLanguage) return;
 
-    this.form.get('language')?.valueChanges.pipe(takeUntilDestroyed()).subscribe((newLanguage) => {
-      if(!newLanguage) return
+        console.log('Language changed to:', newLanguage);
+        this.translocoService.setActiveLang(newLanguage);
 
-      console.log('Language changed to:', newLanguage);
-      this.t.setActiveLang(newLanguage)
-      // Perform additional logic here
-    });
+        console.log(this.translocoService.getTranslation());
+      });
   }
 }
